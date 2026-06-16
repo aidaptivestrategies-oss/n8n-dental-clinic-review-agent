@@ -1,31 +1,25 @@
-# n8n n8n-dental-clinic-review-agent
+# n8n Automation Templates
 
----
+A collection of production-ready n8n workflow templates for small business automation, built by an AI consultant specializing in Canadian SMEs.
 
 ## Workflows
 
-### Dental Clinic Review Request Agent
+| Workflow | Description |
+|---|---|
+| [Dental Clinic Review Request Agent](workflows/dental-clinic-review-agent/) | Automates patient review collection for dental clinics — routes by sentiment, generates personalized follow-up emails via Claude, and enforces opt-out compliance |
 
-A production-ready n8n workflow that automates patient review collection for dental clinics — eliminating the need for manual follow-up while maintaining a personalized, professional experience.
+## Quick Start
 
-**What it does:**
+1. Pick a workflow from the table above and open its folder for setup instructions.
+2. Import the `.json` file into n8n (**Workflows → Import from file**).
+3. Configure credentials and replace the `{{PLACEHOLDER}}` values as described in the workflow's README.
+4. Test with a sample webhook payload before going live.
 
-- Triggers via webhook when a patient interaction is logged
-- Routes patient responses by sentiment (positive, neutral, negative)
-- Generates personalized follow-up emails using the Claude API
-- Includes 72-hour follow-up logic for non-responses
-- Enforces opt-out protection to keep your clinic compliant and respectful
+## Requirements
 
-**Problem it solves:**
-
-Most dental clinics rely on front desk staff to manually request reviews — an inconsistent, time-consuming process that gets deprioritized when the clinic is busy. This agent handles the entire review request flow automatically, from the initial ask to a personalized follow-up, while routing negative sentiment away from public review platforms and toward internal resolution.
-
-**Tools connected:**
-
-- n8n (workflow orchestration)
-- Claude API (personalized email generation)
-- Webhook trigger (patient event input)
-- Email (outbound review requests and follow-ups)
+- Self-hosted or cloud n8n instance
+- Claude API key (for AI-generated email copy)
+- Email credentials configured in n8n (Gmail OAuth2 or SMTP)
 
 ---
 
