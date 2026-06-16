@@ -29,4 +29,4 @@
 
 ## Work With Me
 
-Visit [aidaptivestrategies.com](https://aidaptivestrategies.com) to learn more, or connect on [Upwork](https://www.upwork.com) for custom automation projects tailored to your business.
+Visit [aidaptivestrategies.com](https://aidaptivestrategies.com) to learn more, or connect on [Upwork](https://www.upwork.com/freelancers/~01a9be945ff9510944) for custom automation projects tailored to your business.
