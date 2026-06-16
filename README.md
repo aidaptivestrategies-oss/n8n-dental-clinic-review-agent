@@ -1,6 +1,4 @@
-# n8n Automation Templates by AIdaptive Strategies
-
-Production-built n8n workflow templates for small business automation, built by an AI consultant specializing in Canadian SMEs.
+# n8n n8n-dental-clinic-review-agent
 
 ---
 
