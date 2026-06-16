@@ -37,7 +37,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Validate and extract incoming patient data\nconst body = $input.first().json.body || $input.first().json;\n\nconst required = ['patient_name', 'patient_email', 'appointment_date', 'clinic_name'];\nconst missing = required.filter(f => !body[f]);\nif (missing.length > 0) {\n  throw new Error(`Missing required fields: ${missing.join(', ')}`);\n}\n\nreturn [{\n  json: {\n    patient_name: body.patient_name.trim(),\n    patient_first_name: body.patient_name.trim().split(' ')[0],\n    patient_email: body.patient_email.trim().toLowerCase(),\n    patient_phone: body.patient_phone || null,\n    appointment_date: body.appointment_date,\n    appointment_type: body.appointment_type || '',\n    provider_name: (body.provider_name || body.dentist_name || '').trim(),\n    appointment_notes: body.appointment_notes || '',\n    clinic_name: body.clinic_name.trim(),\n    clinic_review_url: body.clinic_review_url || body.clinic_google_review_url || 'https://g.page/r/YOUR_CLINIC_REVIEW_LINK',\n    clinic_manager_email: body.clinic_manager_email || 'manager@clinic.com',\n    gbp_account_name: body.gbp_account_name || 'accounts/YOUR_ACCOUNT_ID',\n    gbp_location_name: body.gbp_location_name || 'locations/YOUR_LOCATION_ID',\n    send_sms: body.patient_phone ? true : false,\n    timestamp: new Date().toISOString()\n  }\n}];"
+        "jsCode": "// Validate and extract incoming patient data\nconst body = $input.first().json.body || $input.first().json;\n\nconst required = ['patient_name', 'patient_email', 'appointment_date', 'clinic_name'];\nconst missing = required.filter(f => !body[f]);\nif (missing.length > 0) {\n  throw new Error(`Missing required fields: ${missing.join(', ')}`);\n}\n\nreturn [{\n  json: {\n    patient_name: body.patient_name.trim(),\n    patient_first_name: body.patient_name.trim().split(' ')[0],\n    patient_email: body.patient_email.trim().toLowerCase(),\n    patient_phone: body.patient_phone || null,\n    appointment_date: body.appointment_date,\n    appointment_type: body.appointment_type || '',\n    provider_name: (body.provider_name || body.dentist_name || '').trim(),\n    appointment_notes: body.appointment_notes || '',\n    clinic_name: body.clinic_name.trim(),\n    clinic_review_url: body.clinic_review_url || body.clinic_google_review_url || '{{REVIEW_LINK}}',\n    clinic_manager_email: body.clinic_manager_email || '{{MANAGER_EMAIL}}',\n    gbp_account_name: body.gbp_account_name || 'accounts/YOUR_ACCOUNT_ID',\n    gbp_location_name: body.gbp_location_name || 'locations/YOUR_LOCATION_ID',\n    send_sms: body.patient_phone ? true : false,\n    timestamp: new Date().toISOString()\n  }\n}];"
       },
       "id": "6e99cf27-25f2-4898-b8b6-28adf520783e",
       "name": "Validate & Structure Data",
@@ -81,7 +81,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "iHPANhRlnoNxdqCZ",
+          "id": "",
           "name": "Google Sheets account"
         }
       },
@@ -148,7 +148,7 @@
       ],
       "credentials": {
         "anthropicApi": {
-          "id": "lgnCuwsw5BDyMJXo",
+          "id": "",
           "name": "Anthropic account"
         }
       },
@@ -205,7 +205,7 @@
     },
     {
       "parameters": {
-        "fromEmail": "YOUR_SENDING_EMAIL@DOMAIN.COM",
+        "fromEmail": "{{SENDING_EMAIL}}",
         "toEmail": "={{ $('Validate & Structure Data').first().json.clinic_manager_email }}",
         "subject": "=⚠️ Negative Patient Feedback - Action Required: {{ $('Validate & Structure Data').first().json.patient_name }}",
         "html": "=<p>A patient may have had a negative experience.</p>\n<p>Patient: {{ $('Validate & Structure Data').first().json.patient_name }}</p>\n<p>Appointment type: {{ $('Validate & Structure Data').first().json.appointment_type }}</p>\n<p>Provider: {{ $('Validate & Structure Data').first().json.provider_name }}</p>\n<p>Notes: {{ $('Validate & Structure Data').first().json.appointment_notes }}</p>",
@@ -224,7 +224,7 @@
       "webhookId": "YOUR_WEBHOOK_ID_ALERT",
       "credentials": {
         "smtp": {
-          "id": "4AiZ4tl1wAvSTiY6",
+          "id": "",
           "name": "SMTP account"
         }
       },
@@ -232,7 +232,7 @@
     },
     {
       "parameters": {
-        "fromEmail": "YOUR_SENDING_EMAIL@DOMAIN.COM",
+        "fromEmail": "{{SENDING_EMAIL}}",
         "toEmail": "={{ $('Validate & Structure Data').first().json.patient_email }}",
         "subject": "={{ $json.email_subject }}",
         "html": "={{ $json.email_body }}",
@@ -252,7 +252,7 @@
       "webhookId": "YOUR_WEBHOOK_ID_SEND_EMAIL",
       "credentials": {
         "smtp": {
-          "id": "4AiZ4tl1wAvSTiY6",
+          "id": "",
           "name": "SMTP account"
         }
       },
@@ -344,7 +344,7 @@
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "iHPANhRlnoNxdqCZ",
+          "id": "",
           "name": "Google Sheets account"
         }
       },
@@ -396,7 +396,7 @@
     },
     {
       "parameters": {
-        "fromEmail": "YOUR_SENDING_EMAIL@DOMAIN.COM",
+        "fromEmail": "{{SENDING_EMAIL}}",
         "toEmail": "={{ $('Validate & Structure Data').first().json.patient_email }}",
         "subject": "={{ 'Just checking in, ' + $('Validate & Structure Data').first().json.patient_first_name }}",
         "html": "=<p>Hi {{ $('Validate & Structure Data').first().json.patient_first_name }},</p>\n<p>Just a quick follow-up from {{ $('Validate & Structure Data').first().json.clinic_name }}. We'd still love to hear about your recent visit.</p>\n<p>If you have a moment, <a href=\"{{ $('Validate & Structure Data').first().json.clinic_review_url }}\">leave us a Google review here</a>. It means a lot to our team.</p>\n<p>Thanks again for choosing us.</p>",
@@ -415,7 +415,7 @@
       "webhookId": "YOUR_WEBHOOK_ID_FOLLOWUP",
       "credentials": {
         "smtp": {
-          "id": "4AiZ4tl1wAvSTiY6",
+          "id": "",
           "name": "SMTP account"
         }
       },
@@ -575,10 +575,10 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "versionId": "7ce45798-46dd-4fd2-986a-a3a1d525866b",
+  "versionId": "",
   "meta": {
-    "instanceId": "ae363b24fe12a33cba3fea2d78c41037950face041d2d0a7369e9d47ea1ab426"
+    "instanceId": ""
   },
-  "id": "l09xQ7UKLBbNe1Di",
+  "id": "",
   "tags": []
 }
